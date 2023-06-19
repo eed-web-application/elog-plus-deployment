@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: elog-plus-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: elog-plus-deployment
+  template:
+    metadata:
+      labels:
+        app: elog-plus-deployment
+      annotations:
+        prometheus.io/scrape: 'true'
+        prometheus.io.scheme: 'http'
+        prometheus.io/path: '/actuator/prometheus'
+        prometheus.io/port: '8080'
+    spec:
+      containers:
+      - name: elog-plus-deployment
+        imagePullPolicy: Always
+        image: __image_name__
+        envFrom:
+        - configMapRef:
+            name: env-config-map
+        resources:
+          limits:
+            memory: 512Mi
+            cpu: "250m"
+        ports:
+        - containerPort: 8080
+      imagePullSecrets:
+      - name: gh-secret
