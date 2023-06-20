@@ -54,6 +54,8 @@ jobs:
             # Downloads a copy of the code in your repository before running CI tests
             - name: Check out repository code
               uses: actions/checkout@v3
+            - name: Install bash
+              run: apk add --no-cache bash
             - name: Execute Tests
               shell: bash
               run: |
