@@ -33,8 +33,7 @@ jobs:
           id: check_files
           run: |
             FILES=$(find . -name 'docker-compose.*')
-            if [ -z "$FILES" ]; then echo "::set-output name=found::false"; else echo "::set-output name=found::true"; fi
-              shell: bash
+            if [ -z "$FILES" ]; then echo 'found=false' >> $GITHUB_ENV; else echo 'found=true' >> $GITHUB_ENV; fi
         - name: Test Project
           if: steps.check_files.outputs.found == 'false'
           uses: gradle/gradle-build-action@v2
