@@ -32,16 +32,23 @@ jobs:
         - name: Check for files
           id: check_files
           run: |
-            FILES=$(find . -name 'execute-test.*')
+            FILES=$(find . -name 'docker-compose.yml)
             if [ -z "$FILES" ]; then echo 'found=false' >> $GITHUB_ENV; else echo 'found=true' >> $GITHUB_ENV; fi
+        - name: Launch test backend
+          if: steps.check_files.outputs.found == 'true'
+          run: |
+            docker compose -f docker-compsoe.yml up -d
         - name: Test Project
-          if: steps.check_files.outputs.found == 'false'
           uses: gradle/gradle-build-action@v2
           env:
             CI: true
           with:
             gradle-version: 7.6
             arguments: test
+        - name: Sjoutdown test backend
+          if: steps.check_files.outputs.found == 'true'
+          run: |
+            docker compose -f docker-compsoe.yml up -d
     test-using-docker-compose:
         runs-on: ubuntu-latest
         container: 
