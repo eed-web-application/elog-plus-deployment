@@ -46,4 +46,4 @@ jobs:
         - name: Sjoutdown test backend
           if: steps.check_files.outputs.files_exists == 'true'
           run: |
-            docker compose -f docker-compsoe.yml up -d
+            docker compose -f docker-compose.yml up -d
