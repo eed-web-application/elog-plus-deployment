@@ -50,7 +50,7 @@ jobs:
             # Downloads a copy of the code in your repository before running CI tests
             - name: Check out repository code
               uses: actions/checkout@v3
-            - run: |
-                ls -la
             - name: Execute Tests
-              run: tools/execute-test.sh
+              run: |
+                ls -la
+                $PWD/tools/execute-test.sh 
