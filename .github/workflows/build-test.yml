@@ -13,6 +13,8 @@ env:
 jobs:
     build_and_test:
       runs-on: ubuntu-latest
+      outputs:
+        found: ${{ steps.check_files.outputs.found }}
       steps:
         - name: Checkout source code
           uses: actions/checkout@v3
@@ -27,10 +29,26 @@ jobs:
           with:
             gradle-version: 7.6
             arguments: assemble
+        - name: Check for files
+          id: check_files
+          run: |
+            FILES=$(find . -name 'docker-compose.*')
+            if [ -z "$FILES" ]; then echo "::set-output name=found::false"; else echo "::set-output name=found::true"; fi
+              shell: bash
         - name: Test Project
+          if: steps.check_files.outputs.found == 'false'
           uses: gradle/gradle-build-action@v2
           env:
             CI: true
           with:
             gradle-version: 7.6
             arguments: test
+    test-using-docker-compose:
+        runs-on: ubuntu-latest
+        container: docker:23.0.0-cli
+        steps:
+            # Downloads a copy of the code in your repository before running CI tests
+            - name: Check out repository code
+              uses: actions/checkout@v3
+            - name: Execute Tests
+              run: tools/execute-test.sh
