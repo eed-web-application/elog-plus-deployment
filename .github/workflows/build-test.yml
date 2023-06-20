@@ -45,9 +45,12 @@ jobs:
     test-using-docker-compose:
         runs-on: ubuntu-latest
         container: docker:23.0.0-cli
+        needs: build_and_test
         steps:
             # Downloads a copy of the code in your repository before running CI tests
             - name: Check out repository code
               uses: actions/checkout@v3
+            - run: |
+                ls -la
             - name: Execute Tests
               run: tools/execute-test.sh
