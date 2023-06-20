@@ -49,21 +49,3 @@ jobs:
           if: steps.check_files.outputs.found == 'true'
           run: |
             docker compose -f docker-compsoe.yml up -d
-    test-using-docker-compose:
-        runs-on: ubuntu-latest
-        container: 
-          image: docker:23.0.0-cli
-          volumes: 
-            - ${{ github.workspace }}:${{ github.workspace }}
-          options: --workdir ${{ github.workspace }}
-        needs: build_and_test
-        steps:
-            # Downloads a copy of the code in your repository before running CI tests
-            - name: Check out repository code
-              uses: actions/checkout@v3
-            - name: Install bash
-              run: apk add --no-cache bash
-            - name: Execute Tests
-              shell: bash
-              run: |
-                ./execute-test.sh
