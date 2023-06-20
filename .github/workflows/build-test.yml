@@ -13,8 +13,6 @@ env:
 jobs:
     build_and_test:
       runs-on: ubuntu-latest
-      outputs:
-        found: ${{ steps.check_files.outputs.found }}
       steps:
         - name: Checkout source code
           uses: actions/checkout@v3
@@ -30,12 +28,12 @@ jobs:
             gradle-version: 7.6
             arguments: assemble
         - name: Check for files
+          uses: andstor/file-existence-action@v2
           id: check_files
-          run: |
-            FILES=$(find . -name 'docker-compose.yml')
-            if [ -z "$FILES" ]; then echo 'found=false' >> $GITHUB_ENV; else echo 'found=true' >> $GITHUB_ENV; fi
+          with:
+            files: "docker-compose.yml"
         - name: Launch test backend
-          if: steps.check_files.outputs.found == 'true'
+          if: steps.check_files.outputs.files_exists == 'true'
           run: |
             docker compose -f docker-compsoe.yml up -d
         - name: Test Project
@@ -46,6 +44,6 @@ jobs:
             gradle-version: 7.6
             arguments: test
         - name: Sjoutdown test backend
-          if: steps.check_files.outputs.found == 'true'
+          if: steps.check_files.outputs.files_exists == 'true'
           run: |
             docker compose -f docker-compsoe.yml up -d
