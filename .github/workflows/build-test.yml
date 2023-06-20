@@ -45,7 +45,8 @@ jobs:
     test-using-docker-compose:
         runs-on: ubuntu-latest
         container: 
-          volumes: docker:23.0.0-cli
+          image: docker:23.0.0-cli
+          volumes: 
             - ${{ github.workspace }}:${{ github.workspace }}
           options: --workdir ${{ github.workspace }}
         needs: build_and_test
