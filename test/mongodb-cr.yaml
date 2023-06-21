@@ -1,0 +1,212 @@
+apiVersion: psmdb.percona.com/v1
+kind: PerconaServerMongoDB
+metadata:
+  name: elog-plus-cluster
+  finalizers:
+    - delete-psmdb-pods-in-order
+spec:
+  crVersion: 1.14.0
+  image: percona/percona-server-mongodb:6.0.4-3
+  imagePullPolicy: Always
+  allowUnsafeConfigurations: false
+  updateStrategy: SmartUpdate
+  upgradeOptions:
+    versionServiceEndpoint: https://check.percona.com
+    apply: disabled
+    schedule: "0 2 * * *"
+    setFCV: false
+  secrets:
+    users: elog-plus-cluster-secrets
+    encryptionKey: elog-plus-cluster-encryption-key
+#    vault: my-cluster-name-vault
+  pmm:
+    enabled: false
+    image: percona/pmm-client:2.35.0
+    serverHost: monitoring-service
+#    mongodParams: --environment=ENVIRONMENT
+#    mongosParams: --environment=ENVIRONMENT
+  replsets:
+
+  - name: rs0
+    size: 3
+    affinity:
+      antiAffinityTopologyKey: "kubernetes.io/hostname"
+    annotations:
+      prometheus.io/scrape: 'true'
+      prometheus.io/port: '9216'
+      prometheus.io/path: '/metrics'
+
+    sidecars:
+    - image: percona/mongodb_exporter:2.37.0
+      name: mongodb-exporter
+      args: ["--compatible-mode", "--discovering-mode", "--collector.diagnosticdata", "--collector.replicasetstatus","--collector.dbstats", "--collector.topmetrics", "--collector.indexstats", "--mongodb.uri=$(MONGODB_URI)", "--web.listen-address=$(POD_IP):9216"]
+      env:
+      - name: EXPORTER_USER
+        valueFrom:
+          secretKeyRef:
+            name: elog-plus-cluster-secrets
+            key: MONGODB_CLUSTER_MONITOR_USER
+      - name: EXPORTER_PASS
+        valueFrom:
+          secretKeyRef:
+            name: elog-plus-cluster-secrets
+            key: MONGODB_CLUSTER_MONITOR_PASSWORD
+      - name: POD_IP
+        valueFrom:
+          fieldRef:
+            fieldPath: status.podIP
+      - name: MONGODB_URI
+        value: "mongodb://$(EXPORTER_USER):$(EXPORTER_PASS)@$(POD_IP)/?replicaSet=rs0&authMechanism=SCRAM-SHA-256"
+    podDisruptionBudget:
+      maxUnavailable: 1
+#      minAvailable: 0
+    expose:
+      enabled: false
+      exposeType: ClusterIP
+    resources:
+      limits:
+        cpu: "300m"
+        memory: "0.5G"
+      requests:
+        cpu: "300m"
+        memory: "0.5G"
+    volumeSpec:
+      persistentVolumeClaim:
+        resources:
+          requests:
+            storage: 100Gi
+
+    nonvoting:
+      enabled: false
+      size: 3
+      affinity:
+        antiAffinityTopologyKey: "kubernetes.io/hostname"
+      podDisruptionBudget:
+        maxUnavailable: 1
+#        minAvailable: 0
+      resources:
+        limits:
+          cpu: "300m"
+          memory: "0.5G"
+        requests:
+          cpu: "300m"
+          memory: "0.5G"
+      volumeSpec:
+        persistentVolumeClaim:
+          resources:
+            requests:
+              storage: 10Gi
+    arbiter:
+      enabled: false
+      size: 1
+      affinity:
+        antiAffinityTopologyKey: "kubernetes.io/hostname"
+
+  sharding:
+    enabled: false
+    configsvrReplSet:
+      size: 3
+      affinity:
+        antiAffinityTopologyKey: "kubernetes.io/hostname"
+      podDisruptionBudget:
+        maxUnavailable: 1
+      expose:
+        enabled: false
+        exposeType: ClusterIP
+      resources:
+        limits:
+          cpu: "300m"
+          memory: "0.5G"
+        requests:
+          cpu: "300m"
+          memory: "0.5G"
+      volumeSpec:
+        persistentVolumeClaim:
+          resources:
+            requests:
+              storage: 3Gi
+
+    mongos:
+      size: 3
+      affinity:
+        antiAffinityTopologyKey: "kubernetes.io/hostname"
+      podDisruptionBudget:
+        maxUnavailable: 1
+      resources:
+        limits:
+          cpu: "300m"
+          memory: "0.5G"
+        requests:
+          cpu: "300m"
+          memory: "0.5G"
+      expose:
+        exposeType: ClusterIP
+
+  backup:
+    enabled: false
+    image: percona/percona-backup-mongodb:2.0.4
+    serviceAccountName: percona-server-mongodb-operator
+#    annotations:
+#      iam.amazonaws.com/role: role-arn
+#    resources:
+#      limits:
+#        cpu: "300m"
+#        memory: "0.5G"
+#      requests:
+#        cpu: "300m"
+#        memory: "0.5G"
+#    storages:
+#      s3-us-west:
+#        type: s3
+#        s3:
+#          bucket: S3-BACKUP-BUCKET-NAME-HERE
+#          credentialsSecret: my-cluster-name-backup-s3
+#          region: us-west-2
+#          prefix: ""
+#          uploadPartSize: 10485760
+#          maxUploadParts: 10000
+#          storageClass: STANDARD
+#          insecureSkipTLSVerify: false
+#      minio:
+#        type: s3
+#        s3:
+#          bucket: MINIO-BACKUP-BUCKET-NAME-HERE
+#          region: us-east-1
+#          credentialsSecret: my-cluster-name-backup-minio
+#          endpointUrl: http://minio.psmdb.svc.cluster.local:9000/minio/
+#          insecureSkipTLSVerify: false
+#          prefix: ""
+#      azure-blob:
+#        type: azure
+#        azure:
+#          container: CONTAINER-NAME
+#          prefix: PREFIX-NAME
+#          credentialsSecret: SECRET-NAME
+    pitr:
+      enabled: false
+#      oplogSpanMin: 10
+      compressionType: gzip
+      compressionLevel: 6
+#    tasks:
+#      - name: daily-s3-us-west
+#        enabled: true
+#        schedule: "0 0 * * *"
+#        keep: 3
+#        storageName: s3-us-west
+#        compressionType: gzip
+#        compressionLevel: 6
+#      - name: weekly-s3-us-west
+#        enabled: false
+#        schedule: "0 0 * * 0"
+#        keep: 5
+#        storageName: s3-us-west
+#        compressionType: gzip
+#        compressionLevel: 6
+#      - name: weekly-s3-us-west-physical
+#        enabled: false
+#        schedule: "0 5 * * 0"
+#        keep: 5
+#        type: physical
+#        storageName: s3-us-west
+#        compressionType: gzip
+#        compressionLevel: 6

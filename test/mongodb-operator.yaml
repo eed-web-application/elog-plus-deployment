@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: elog-plus-mongodb-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: elog-plus-mongodb-operator
+  template:
+    metadata:
+      labels:
+        name: elog-plus-mongodb-operator
+    spec:
+      serviceAccountName: elog-plus-mongodb-operator
+      containers:
+        - name: elog-plus-mongodb-operator
+          image: percona/elog-plus-mongodb-operator:1.14.0
+          ports:
+          - containerPort: 60000
+            protocol: TCP
+            name: metrics
+          command:
+          - elog-plus-mongodb-operator
+          imagePullPolicy: Always
+          env:
+            - name: LOG_STRUCTURED
+              value: 'false'
+            - name: LOG_LEVEL
+              value: INFO
+            - name: WATCH_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: OPERATOR_NAME
+              value: elog-plus-mongodb-operator
+            - name: RESYNC_PERIOD
+              value: 5s
+            - name: LOG_VERBOSE
+              value: "false"
+            - name: DISABLE_TELEMETRY
+              value: "false"

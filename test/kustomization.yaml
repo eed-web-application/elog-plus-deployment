@@ -7,3 +7,7 @@ resources:
 - env-config-map.yaml
 - docker-config-secrets.yaml
 - ingress.yaml
+- mongodb-cr.yaml
+- mongodb-operator.yaml
+- mongodb-rbac.yaml
+- mongodb-secrets.yaml
