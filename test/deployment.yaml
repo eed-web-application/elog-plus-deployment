@@ -20,7 +20,7 @@ spec:
       containers:
       - name: elog-plus-deployment
         imagePullPolicy: Always
-        image: ghcr.io/eed-web-application/elog-plus:sha-61def71
+        image: ghcr.io/eed-web-application/elog-plus:sha-f45078e
         envFrom:
         - configMapRef:
             name: env-config-map
