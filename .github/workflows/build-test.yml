@@ -45,3 +45,11 @@ jobs:
           if: steps.check_files.outputs.files_exists == 'true'
           run: |
             docker compose -f docker-compose.yml down -v
+        - name: Add coverage to PR
+          id: jacoco
+          uses: madrapps/jacoco-report@v1.3
+          with:
+            paths: ${{ github.workspace }}/build/coverage/test/jacocoTestReport.xml
+            token: ${{ secrets.GITHUB_TOKEN }}
+            min-coverage-overall: 30
+            min-coverage-changed-files: 60
