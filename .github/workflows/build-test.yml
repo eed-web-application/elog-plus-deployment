@@ -43,7 +43,7 @@ jobs:
           with:
             arguments: test
         - name: Shoutdown test backend
-          if: steps.check_files.outputs.files_exists == 'true' &&  success() || failure()
+          if: steps.check_files.outputs.files_exists == 'true' &&  (success() || failure())
           run: |
             docker compose -f docker-compose.yml logs
             docker compose -f docker-compose.yml down -v
