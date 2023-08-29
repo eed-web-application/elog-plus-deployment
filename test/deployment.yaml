@@ -21,11 +21,32 @@ spec:
       - name: elog-plus-deployment
         imagePullPolicy: Always
         image: ghcr.io/eed-web-application/elog-plus:sha-8355fcc
+        env:
+        - name: ELOG_PLUS_MINIO_URL
+          valueFrom:
+            secretKeyRef:
+              name: s3-secret
+              key: url
+        - name: ELOG_PLUS_MINIO_BUCKET_NAME
+          valueFrom:
+            secretKeyRef:
+              name: s3-secret
+              key: bucket
+        - name: ELOG_PLUS_MINIO_KEY
+          valueFrom:
+            secretKeyRef:
+              name: s3-secret
+              key: access-key
+        - name: ELOG_PLUS_MINIO_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: s3-secret
+              key: secret-key
         envFrom:
         - configMapRef:
             name: env-config-map
-        - configMapRef:
-            name: s3-secret
+        # - configMapRef:
+        #     name: s3-secret
         - configMapRef:
             name: mongodb-secret
         resources:
