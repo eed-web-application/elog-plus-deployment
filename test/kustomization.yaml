@@ -8,6 +8,7 @@ resources:
 - docker-config-secrets.yaml
 - s3-secret.yaml
 # - ingress.yaml
-- mongodb-cr.yaml
-- mongodb-bundle.yaml
+# - mongodb-cr.yaml
+- mongodb-rback.yaml
+- mongodb-operator.yaml
 - mongodb-secrets.yaml
