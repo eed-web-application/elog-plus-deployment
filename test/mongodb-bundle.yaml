@@ -992,109 +992,6 @@ spec:
                 type: object
               initImage:
                 type: string
-              mongod:
-                properties:
-                  auditLog:
-                    properties:
-                      destination:
-                        type: string
-                      filter:
-                        type: string
-                      format:
-                        type: string
-                    type: object
-                  net:
-                    properties:
-                      hostPort:
-                        format: int32
-                        type: integer
-                      port:
-                        format: int32
-                        type: integer
-                    type: object
-                  operationProfiling:
-                    properties:
-                      mode:
-                        type: string
-                      rateLimit:
-                        type: integer
-                      slowOpThresholdMs:
-                        type: integer
-                    type: object
-                  replication:
-                    properties:
-                      oplogSizeMB:
-                        type: integer
-                    type: object
-                  security:
-                    properties:
-                      enableEncryption:
-                        type: boolean
-                      encryptionCipherMode:
-                        type: string
-                      encryptionKeySecret:
-                        type: string
-                      redactClientLogData:
-                        type: boolean
-                    type: object
-                  setParameter:
-                    properties:
-                      cursorTimeoutMillis:
-                        type: integer
-                      ttlMonitorSleepSecs:
-                        type: integer
-                      wiredTigerConcurrentReadTransactions:
-                        type: integer
-                      wiredTigerConcurrentWriteTransactions:
-                        type: integer
-                    type: object
-                  storage:
-                    properties:
-                      directoryPerDB:
-                        type: boolean
-                      engine:
-                        type: string
-                      inMemory:
-                        properties:
-                          engineConfig:
-                            properties:
-                              inMemorySizeRatio:
-                                type: number
-                            type: object
-                        type: object
-                      mmapv1:
-                        properties:
-                          nsSize:
-                            type: integer
-                          smallfiles:
-                            type: boolean
-                        type: object
-                      syncPeriodSecs:
-                        type: integer
-                      wiredTiger:
-                        properties:
-                          collectionConfig:
-                            properties:
-                              blockCompressor:
-                                type: string
-                            type: object
-                          engineConfig:
-                            properties:
-                              cacheSizeRatio:
-                                type: number
-                              directoryForIndexes:
-                                type: boolean
-                              journalCompressor:
-                                type: string
-                            type: object
-                          indexConfig:
-                            properties:
-                              prefixCompression:
-                                type: boolean
-                            type: object
-                        type: object
-                    type: object
-                type: object
               multiCluster:
                 properties:
                   DNSSuffix:
@@ -3220,6 +3117,19 @@ spec:
                                     format: int32
                                     type: integer
                                 type: object
+                              resizePolicy:
+                                items:
+                                  properties:
+                                    resourceName:
+                                      type: string
+                                    restartPolicy:
+                                      type: string
+                                  required:
+                                  - resourceName
+                                  - restartPolicy
+                                  type: object
+                                type: array
+                                x-kubernetes-list-type: atomic
                               resources:
                                 properties:
                                   claims:
@@ -3441,6 +3351,9 @@ spec:
                         size:
                           format: int32
                           type: integer
+                        terminationGracePeriodSeconds:
+                          format: int64
+                          type: integer
                         tolerations:
                           items:
                             properties:
@@ -3562,6 +3475,17 @@ spec:
                         - host
                         - priority
                         - votes
+                        type: object
+                      type: array
+                    hostAliases:
+                      items:
+                        properties:
+                          hostnames:
+                            items:
+                              type: string
+                            type: array
+                          ip:
+                            type: string
                         type: object
                       type: array
                     labels:
@@ -5628,6 +5552,19 @@ spec:
                                     format: int32
                                     type: integer
                                 type: object
+                              resizePolicy:
+                                items:
+                                  properties:
+                                    resourceName:
+                                      type: string
+                                    restartPolicy:
+                                      type: string
+                                  required:
+                                  - resourceName
+                                  - restartPolicy
+                                  type: object
+                                type: array
+                                x-kubernetes-list-type: atomic
                               resources:
                                 properties:
                                   claims:
@@ -5848,6 +5785,9 @@ spec:
                           type: array
                         size:
                           format: int32
+                          type: integer
+                        terminationGracePeriodSeconds:
+                          format: int64
                           type: integer
                         tolerations:
                           items:
@@ -7440,6 +7380,19 @@ spec:
                                 format: int32
                                 type: integer
                             type: object
+                          resizePolicy:
+                            items:
+                              properties:
+                                resourceName:
+                                  type: string
+                                restartPolicy:
+                                  type: string
+                              required:
+                              - resourceName
+                              - restartPolicy
+                              type: object
+                            type: array
+                            x-kubernetes-list-type: atomic
                           resources:
                             properties:
                               claims:
@@ -7707,6 +7660,9 @@ spec:
                               type: object
                           type: object
                       type: object
+                    terminationGracePeriodSeconds:
+                      format: int64
+                      type: integer
                     tolerations:
                       items:
                         properties:
@@ -9935,6 +9891,19 @@ spec:
                                       format: int32
                                       type: integer
                                   type: object
+                                resizePolicy:
+                                  items:
+                                    properties:
+                                      resourceName:
+                                        type: string
+                                      restartPolicy:
+                                        type: string
+                                    required:
+                                    - resourceName
+                                    - restartPolicy
+                                    type: object
+                                  type: array
+                                  x-kubernetes-list-type: atomic
                                 resources:
                                   properties:
                                     claims:
@@ -10156,6 +10125,9 @@ spec:
                           size:
                             format: int32
                             type: integer
+                          terminationGracePeriodSeconds:
+                            format: int64
+                            type: integer
                           tolerations:
                             items:
                               properties:
@@ -10277,6 +10249,17 @@ spec:
                           - host
                           - priority
                           - votes
+                          type: object
+                        type: array
+                      hostAliases:
+                        items:
+                          properties:
+                            hostnames:
+                              items:
+                                type: string
+                              type: array
+                            ip:
+                              type: string
                           type: object
                         type: array
                       labels:
@@ -12343,6 +12326,19 @@ spec:
                                       format: int32
                                       type: integer
                                   type: object
+                                resizePolicy:
+                                  items:
+                                    properties:
+                                      resourceName:
+                                        type: string
+                                      restartPolicy:
+                                        type: string
+                                    required:
+                                    - resourceName
+                                    - restartPolicy
+                                    type: object
+                                  type: array
+                                  x-kubernetes-list-type: atomic
                                 resources:
                                   properties:
                                     claims:
@@ -12563,6 +12559,9 @@ spec:
                             type: array
                           size:
                             format: int32
+                            type: integer
+                          terminationGracePeriodSeconds:
+                            format: int64
                             type: integer
                           tolerations:
                             items:
@@ -14155,6 +14154,19 @@ spec:
                                   format: int32
                                   type: integer
                               type: object
+                            resizePolicy:
+                              items:
+                                properties:
+                                  resourceName:
+                                    type: string
+                                  restartPolicy:
+                                    type: string
+                                required:
+                                - resourceName
+                                - restartPolicy
+                                type: object
+                              type: array
+                              x-kubernetes-list-type: atomic
                             resources:
                               properties:
                                 claims:
@@ -14422,6 +14434,9 @@ spec:
                                 type: object
                             type: object
                         type: object
+                      terminationGracePeriodSeconds:
+                        format: int64
+                        type: integer
                       tolerations:
                         items:
                           properties:
@@ -14945,15 +14960,6 @@ spec:
                         additionalProperties:
                           type: string
                         type: object
-                      auditLog:
-                        properties:
-                          destination:
-                            type: string
-                          filter:
-                            type: string
-                          format:
-                            type: string
-                        type: object
                       configuration:
                         type: string
                       containerSecurityContext:
@@ -15036,6 +15042,17 @@ spec:
                           servicePerPod:
                             type: boolean
                         type: object
+                      hostAliases:
+                        items:
+                          properties:
+                            hostnames:
+                              items:
+                                type: string
+                              type: array
+                            ip:
+                              type: string
+                          type: object
+                        type: array
                       hostPort:
                         format: int32
                         type: integer
@@ -16580,6 +16597,19 @@ spec:
                                   format: int32
                                   type: integer
                               type: object
+                            resizePolicy:
+                              items:
+                                properties:
+                                  resourceName:
+                                    type: string
+                                  restartPolicy:
+                                    type: string
+                                required:
+                                - resourceName
+                                - restartPolicy
+                                type: object
+                              type: array
+                              x-kubernetes-list-type: atomic
                             resources:
                               properties:
                                 claims:
@@ -16801,6 +16831,9 @@ spec:
                       size:
                         format: int32
                         type: integer
+                      terminationGracePeriodSeconds:
+                        format: int64
+                        type: integer
                       tolerations:
                         items:
                           properties:
@@ -16948,3 +16981,192 @@ spec:
     storage: true
     subresources:
       status: {}
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: percona-server-mongodb-operator
+rules:
+- apiGroups:
+  - psmdb.percona.com
+  resources:
+  - perconaservermongodbs
+  - perconaservermongodbs/status
+  - perconaservermongodbbackups
+  - perconaservermongodbbackups/status
+  - perconaservermongodbrestores
+  - perconaservermongodbrestores/status
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  - pods/exec
+  - services
+  - persistentvolumeclaims
+  - secrets
+  - configmaps
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  - replicasets
+  - statefulsets
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - batch
+  resources:
+  - cronjobs
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - policy
+  resources:
+  - poddisruptionbudgets
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - coordination.k8s.io
+  resources:
+  - leases
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+- apiGroups:
+  - certmanager.k8s.io
+  - cert-manager.io
+  resources:
+  - issuers
+  - certificates
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+  - deletecollection
+- apiGroups:
+  - net.gke.io
+  - multicluster.x-k8s.io
+  resources:
+  - serviceexports
+  - serviceimports
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+  - deletecollection
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: percona-server-mongodb-operator
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: service-account-percona-server-mongodb-operator
+subjects:
+- kind: ServiceAccount
+  name: percona-server-mongodb-operator
+roleRef:
+  kind: Role
+  name: percona-server-mongodb-operator
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: percona-server-mongodb-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: percona-server-mongodb-operator
+  template:
+    metadata:
+      labels:
+        name: percona-server-mongodb-operator
+    spec:
+      serviceAccountName: percona-server-mongodb-operator
+      containers:
+        - name: percona-server-mongodb-operator
+          image: perconalab/percona-server-mongodb-operator:main
+          ports:
+          - containerPort: 60000
+            protocol: TCP
+            name: metrics
+          command:
+          - percona-server-mongodb-operator
+          imagePullPolicy: Always
+          env:
+            - name: LOG_STRUCTURED
+              value: 'false'
+            - name: LOG_LEVEL
+              value: INFO
+            - name: WATCH_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: OPERATOR_NAME
+              value: percona-server-mongodb-operator
+            - name: RESYNC_PERIOD
+              value: 5s
+            - name: DISABLE_TELEMETRY
+              value: "false"
