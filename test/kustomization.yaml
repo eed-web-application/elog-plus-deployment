@@ -6,6 +6,7 @@ resources:
 - app-service.yaml
 - env-config-map.yaml
 - docker-config-secrets.yaml
+- s3-secret.yaml
 - ingress.yaml
 - mongodb-cr.yaml
 - mongodb-operator.yaml

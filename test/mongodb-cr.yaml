@@ -16,7 +16,7 @@ spec:
     schedule: "0 2 * * *"
     setFCV: false
   secrets:
-    users: elog-plus-cluster-secrets
+    users: mongodb-secret
     encryptionKey: elog-plus-cluster-encryption-key
 #    vault: my-cluster-name-vault
   pmm:

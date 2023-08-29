@@ -24,6 +24,10 @@ spec:
         envFrom:
         - configMapRef:
             name: env-config-map
+        - configMapRef:
+            name: s3-secret
+        - configMapRef:
+            name: mongodb-secret
         resources:
           limits:
             memory: 512Mi
