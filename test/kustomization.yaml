@@ -9,6 +9,6 @@ resources:
 - s3-secret.yaml
 # - ingress.yaml
 # - mongodb-cr.yaml
-- mongodb-rback.yaml
+- mongodb-rbac.yaml
 - mongodb-operator.yaml
 - mongodb-secrets.yaml
