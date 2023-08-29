@@ -10,5 +10,4 @@ resources:
 # - ingress.yaml
 - mongodb-cr.yaml
 - mongodb-bundle.yaml
-- mongodb-rbac.yaml
 - mongodb-secrets.yaml
