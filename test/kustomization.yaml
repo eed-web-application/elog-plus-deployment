@@ -12,3 +12,6 @@ resources:
 - mongodb-rbac.yaml
 - mongodb-operator.yaml
 - mongodb-secrets.yaml
+
+generatorOptions:
+ disableNameSuffixHash: true
