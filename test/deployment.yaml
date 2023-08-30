@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name:elog-plus-backend
+  name: elog-plus-backend
 spec:
   replicas: 1
   selector:
