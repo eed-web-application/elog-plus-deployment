@@ -17,7 +17,7 @@ spec:
         operations:
           - Describe
           - Read
-          - write
+          - Write
         host: "*"
       - resource:
           type: group
@@ -26,5 +26,5 @@ spec:
         operations:
           - Describe
           - Read
-          - write
+          - Write
         host: "*"
