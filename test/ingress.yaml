@@ -4,19 +4,14 @@ metadata:
   name: elog-plus-backend-ingress
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
-    nginx.ingress.kubernetes.io/enable-cors: "true"
-    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
-    nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS, DELETE"
-    sc : "DNT,X-CustomHeader,X-LANG,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,X-Api-Key,X-Device-Id,Access-Control-Allow-Origin"
     nginx.ingress.kubernetes.io/auth-url: https://vouch.slac.stanford.edu/validate
-    nginx.ingress.kubernetes.io/auth-response-headers: 'X-Vouch-User, X-Vouch-Idp-Claims-Name, X-Vouch-IdP-AccessToken, X-Vouch-IdP-RefreshToken, X-Vouch-IdP-IdToken, X-Vouch-Token'
-    nginx.ingress.kubernetes.io/auth-snippet: |
-      auth_request_set $auth_resp_jwt $upstream_http_x_vouch_IdToken;
-      auth_request_set $auth_resp_err $upstream_http_x_vouch_err;
-      auth_request_set $auth_resp_failcount $upstream_http_x_vouch_failcount;
     nginx.ingress.kubernetes.io/configuration-snippet: |
-      proxy_set_header Remote-Name $http_x_vouch_idp_claims_name;
-      proxy_set_header Remote-User $http_x_vouch_idp_claims_name;
+      # Use the "map" directive to set a variable based on header presence
+      map $http_your_header $auth_required {
+        default no;
+        present yes;
+      }
+
   labels:
     name: elog-plus-backend-ingress
 spec:
@@ -31,3 +26,9 @@ spec:
             name: elog-plus-backend-service
             port: 
               number: 80
+        nginx.ingress.kubernetes.io/server-snippet: |
+              auth_request /auth-check;
+              auth_request_set $auth_status $upstream_status;
+              if ($auth_required = "no") {
+                proxy_pass http://elog-plus-backend-service;
+              }
