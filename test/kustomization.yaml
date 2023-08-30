@@ -12,7 +12,5 @@ resources:
 - mongodb-rbac.yaml
 - mongodb-operator.yaml
 - mongodb-secrets.yaml
-- kafka-application-user.yaml
-- kafka-application-topic.yaml
 generatorOptions:
  disableNameSuffixHash: true
