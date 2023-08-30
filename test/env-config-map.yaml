@@ -11,5 +11,5 @@ data:
   ELOG_PLUS_AUTHENTICATION_HEADER: X-Vouch-User
   ELOG_PLUS_KAFKA_SECURITY_PROTOCOL: SASL_PLAINTEXT
   ELOG_PLUS_KAFKA_SASL_MECHANISM: SCRAM-SHA-512
-  ELOG_PLUS_KAFKA_SASL_JAAS_CONFIG: org.apache.kafka.common.security.scram.ScramLoginModule required username="elog-plus" password="Pk3zY5eMTm6yFSrtZRoelXsG1AIXBFLN"
+  ELOG_PLUS_KAFKA_SASL_JAAS_CONFIG: 'org.apache.kafka.common.security.scram.ScramLoginModule required username="elog-plus" password="Pk3zY5eMTm6yFSrtZRoelXsG1AIXBFLN";'
   SPRING_PROFILES_ACTIVE: kafka-auth

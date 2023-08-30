@@ -58,9 +58,12 @@ spec:
         - secretRef:
             name: mongodb-secret
         resources:
+          requests:
+            memory: "256Mi"
+            cpu: "500m"
           limits:
             memory: 512Mi
-            cpu: "250m"
+            cpu: 1000m
         ports:
         - containerPort: 8080
       imagePullSecrets:
