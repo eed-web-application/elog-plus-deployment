@@ -44,12 +44,12 @@ spec:
       - name: EXPORTER_USER
         valueFrom:
           secretKeyRef:
-            name: elog-plus-cluster-secrets
+            name: mongodb-secret
             key: MONGODB_CLUSTER_MONITOR_USER
       - name: EXPORTER_PASS
         valueFrom:
           secretKeyRef:
-            name: elog-plus-cluster-secrets
+            name: mongodb-secret
             key: MONGODB_CLUSTER_MONITOR_PASSWORD
       - name: POD_IP
         valueFrom:
