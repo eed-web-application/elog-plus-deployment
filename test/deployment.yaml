@@ -42,11 +42,19 @@ spec:
             secretKeyRef:
               name: s3-secret
               key: secret-key
+        # - name: ELOG_PLUS_MONGODB_URI
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: mongodb-secret
+        #       key: ELOG_PLUS_MONGODB_URI
+        # - name: ELOG_PLUS_ADMIN_MONGODB_URI
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: mongodb-secret
+        #       key: ELOG_PLUS_ADMIN_MONGODB_URI
         envFrom:
         - configMapRef:
             name: env-config-map
-        # - configMapRef:
-        #     name: s3-secret
         - configMapRef:
             name: mongodb-secret
         resources:
