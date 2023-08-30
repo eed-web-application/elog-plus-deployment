@@ -1,0 +1,30 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaUser
+metadata:
+  name: elog-plus
+  labels:
+    strimzi.io/cluster: eed-cluster
+spec:
+  authentication:
+    type: scram-sha-512
+  authorization:
+    type: simple
+    acls:
+      - resource:
+          type: topic
+          name: elog-plus-preview-creation
+          patternType: literal
+        operations:
+          - Describe
+          - Read
+          - write
+        host: "*"
+      - resource:
+          type: group
+          name: elog-plus-group
+          patternType: literal
+        operations:
+          - Describe
+          - Read
+          - write
+        host: "*"
