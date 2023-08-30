@@ -55,7 +55,7 @@ spec:
         envFrom:
         - configMapRef:
             name: env-config-map
-        - configMapRef:
+        - secretRef:
             name: mongodb-secret
         resources:
           limits:
