@@ -42,12 +42,6 @@ spec:
             secretKeyRef:
               name: s3-secret
               key: secret-key
-        - name: ELOG_PLUS_KAFKA_SASL_JAAS_CONFIG
-          valueFrom:
-            secretKeyRef:
-              name: elog-plus
-              key: sasl.jaas.config
-              namespace: kafka
         # - name: ELOG_PLUS_MONGODB_URI
         #   valueFrom:
         #     secretKeyRef:
