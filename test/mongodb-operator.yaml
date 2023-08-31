@@ -1,27 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: elog-plus-mongodb-operator
+  name: percona-server-mongodb-operator
 spec:
   replicas: 1
   selector:
     matchLabels:
-      name: elog-plus-mongodb-operator
+      name: percona-server-mongodb-operator
   template:
     metadata:
       labels:
-        name: elog-plus-mongodb-operator
+        name: percona-server-mongodb-operator
     spec:
-      serviceAccountName: elog-plus-mongodb-operator
+      serviceAccountName: percona-server-mongodb-operator
       containers:
-        - name: elog-plus-mongodb-operator
-          image: percona/elog-plus-mongodb-operator:1.14.0
+        - name: percona-server-mongodb-operator
+          image: percona/percona-server-mongodb-operator:1.14.0
           ports:
           - containerPort: 60000
             protocol: TCP
             name: metrics
           command:
-          - elog-plus-mongodb-operator
+          - percona-server-mongodb-operator
           imagePullPolicy: Always
           env:
             - name: LOG_STRUCTURED
@@ -37,7 +37,7 @@ spec:
                 fieldRef:
                   fieldPath: metadata.name
             - name: OPERATOR_NAME
-              value: elog-plus-mongodb-operator
+              value: percona-server-mongodb-operator
             - name: RESYNC_PERIOD
               value: 5s
             - name: LOG_VERBOSE

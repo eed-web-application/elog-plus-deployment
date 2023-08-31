@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: elog-plus-deployment
+  name: elog-plus-backend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: elog-plus-deployment
+      app: elog-plus-backend
   template:
     metadata:
       labels:
-        app: elog-plus-deployment
+        app: elog-plus-backend
       annotations:
         prometheus.io/scrape: 'true'
         prometheus.io.scheme: 'http'
@@ -18,7 +18,7 @@ spec:
         prometheus.io/port: '8080'
     spec:
       containers:
-      - name: elog-plus-deployment
+      - name: elog-plus-backend
         imagePullPolicy: Always
         image: ghcr.io/eed-web-application/elog-plus:sha-36ac9c1
         env:
@@ -45,14 +45,15 @@ spec:
         envFrom:
         - configMapRef:
             name: env-config-map
-        # - configMapRef:
-        #     name: s3-secret
-        - configMapRef:
+        - secretRef:
             name: mongodb-secret
         resources:
+          requests:
+            memory: "256Mi"
+            cpu: "500m"
           limits:
             memory: 512Mi
-            cpu: "250m"
+            cpu: 1000m
         ports:
         - containerPort: 8080
       imagePullSecrets:

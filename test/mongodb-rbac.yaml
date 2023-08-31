@@ -1,7 +1,7 @@
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: elog-plus-mongodb-operator
+  name: percona-server-mongodb-operator
 rules:
 - apiGroups:
   - psmdb.percona.com
@@ -128,16 +128,16 @@ rules:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: elog-plus-mongodb-operator
+  name: percona-server-mongodb-operator
 ---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: service-account-elog-plus-mongodb-operator
+  name: service-account-percona-server-mongodb-operator
 subjects:
 - kind: ServiceAccount
-  name: elog-plus-mongodb-operator
+  name: percona-server-mongodb-operator
 roleRef:
   kind: Role
-  name: elog-plus-mongodb-operator
+  name: percona-server-mongodb-operator
   apiGroup: rbac.authorization.k8s.io
