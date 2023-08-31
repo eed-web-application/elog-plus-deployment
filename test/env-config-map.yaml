@@ -8,7 +8,7 @@ data:
   ELOG_PLUS_CONSUMER_GROUP_ID: elog-plus-group
   ELOG_PLUS_KAFKA_BOOTSTRAP:  eed-cluster-kafka-bootstrap.kafka.svc.cluster.local:9092
   ELOG_PLUS_IMAGE_PREVIEW_TOPIC: elog-plus-preview-creation
-  ELOG_PLUS_AUTHENTICATION_HEADER: X-Vouch-User
+  ELOG_PLUS_AUTHENTICATION_HEADER: x-vouch-idp-accesstoken
   ELOG_PLUS_KAFKA_SECURITY_PROTOCOL: SASL_PLAINTEXT
   ELOG_PLUS_KAFKA_SASL_MECHANISM: SCRAM-SHA-512
   ELOG_PLUS_KAFKA_SASL_JAAS_CONFIG: 'org.apache.kafka.common.security.scram.ScramLoginModule required username="elog-plus" password="Pk3zY5eMTm6yFSrtZRoelXsG1AIXBFLN";'
