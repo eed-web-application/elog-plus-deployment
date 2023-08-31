@@ -16,6 +16,7 @@ metadata:
       auth_request_set $auth_resp_err $upstream_http_x_vouch_err;
       auth_request_set $auth_resp_failcount $upstream_http_x_vouch_failcount;
     nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header Remote-Id $upstream_http_x_vouch_IdToken
       proxy_set_header Remote-Name $http_x_vouch_idp_claims_name;
       proxy_set_header Remote-User $http_x_vouch_idp_claims_name;
 
