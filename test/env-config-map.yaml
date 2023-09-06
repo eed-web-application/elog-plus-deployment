@@ -12,4 +12,6 @@ data:
   ELOG_PLUS_KAFKA_SECURITY_PROTOCOL: SASL_PLAINTEXT
   ELOG_PLUS_KAFKA_SASL_MECHANISM: SCRAM-SHA-512
   ELOG_PLUS_KAFKA_SASL_JAAS_CONFIG: 'org.apache.kafka.common.security.scram.ScramLoginModule required username="elog-plus" password="Pk3zY5eMTm6yFSrtZRoelXsG1AIXBFLN";'
+  ELOG_PLUS_LDAP_URI: ldaps://sdfldap001.sdf.slac.stanford.edu
+  ELOG_PLUS_LDAP_BASE: dc=sdf,dc=slac,dc=stanford,dc=edu
   SPRING_PROFILES_ACTIVE: kafka-auth
