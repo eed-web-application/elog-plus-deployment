@@ -15,4 +15,4 @@ data:
   ELOG_PLUS_LDAP_URI: ldaps://sdfldap001.sdf.slac.stanford.edu
   ELOG_PLUS_LDAP_BASE: dc=sdf,dc=slac,dc=stanford,dc=edu
   ELOG_PLUS_ROOT_USERS: bisegni@slac.stanford.edu
-  SPRING_PROFILES_ACTIVE: kafka-auth
+  SPRING_PROFILES_ACTIVE: kafka-auth,manage-root-user
