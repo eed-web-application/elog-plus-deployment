@@ -47,6 +47,8 @@ spec:
             name: env-config-map
         - secretRef:
             name: mongodb-secret
+        - secretRef:
+            name: application-secrets
         resources:
           requests:
             memory: "256Mi"
