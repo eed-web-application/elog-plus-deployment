@@ -24,7 +24,7 @@ jobs:
             distribution: temurin
             java-version: 19
         - name: Build project
-          uses: gradle/gradle-build-action@v2
+          uses: gradle/gradle-build-action@v2.4.2
           env:
             CI: true
           with:
