@@ -14,7 +14,6 @@ data:
   ELOG_PLUS_KAFKA_SASL_JAAS_CONFIG: 'org.apache.kafka.common.security.scram.ScramLoginModule required username="elog-plus" password="Pk3zY5eMTm6yFSrtZRoelXsG1AIXBFLN";'
   ELOG_PLUS_LDAP_URI: ldaps://sdfldap001.sdf.slac.stanford.edu
   ELOG_PLUS_LDAP_BASE: dc=sdf,dc=slac,dc=stanford,dc=edu
-  ELOG_PLUS_ROOT_AUTHENTICATION_TOKEN:
   ELOG_PLUS_ROOT_USERS: bisegni@slac.stanford.edu,mgibbs@slac.stanford.edu,boogie@slac.stanford.edu
   ELOG_PLUS_OIDC_CONFIGURATION_ENDPOINT: https://dex.slac.stanford.edu/.well-known/openid-configuration
   SPRING_PROFILES_ACTIVE: kafka-auth,manage-root-user,init-logbook
