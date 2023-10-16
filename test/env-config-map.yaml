@@ -18,6 +18,6 @@ data:
   ELOG_PLUS_OIDC_CONFIGURATION_ENDPOINT: https://dex.slac.stanford.edu/.well-known/openid-configuration
   SPRING_PROFILES_ACTIVE: kafka-auth,manage-root-user,init-logbook
   #root authenticaiton token
-  ELOG_PLUS_ROOT_AUTHENTICATION_TOKEN_JSON: '[{"name":"root-tok-1","expiration":"2014-12-31"}]'
+  ELOG_PLUS_ROOT_AUTHENTICATION_TOKEN_JSON: '[{"name":"root-token-1","expiration":"2024-12-31"}]'
   # EDU_STANFORD_SLAC_ELOG_PLUS_ROOT_AUTHENTICATION_TOKEN_LIST_0_EXPIRATION: 2024-12-31
   # EDU_STANFORD_SLAC_ELOG_PLUS_ROOT_AUTHENTICATION_TOKEN_LIST_0_NAME: root-importer
