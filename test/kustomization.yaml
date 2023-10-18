@@ -15,6 +15,5 @@ resources:
 - mongodb-operator.yaml
 - mongodb-secrets.yaml
 - application-secrets.yaml
-- base-initial-backup.yaml
 generatorOptions:
  disableNameSuffixHash: true
