@@ -8,7 +8,7 @@ spec:
   crVersion: 1.14.0
   image: percona/percona-server-mongodb:6.0.4-3
   imagePullPolicy: Always
-  allowUnsafeConfigurations: false
+  allowUnsafeConfigurations: true
   updateStrategy: SmartUpdate
   upgradeOptions:
     versionServiceEndpoint: https://check.percona.com
