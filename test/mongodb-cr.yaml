@@ -143,58 +143,43 @@ spec:
         exposeType: ClusterIP
 
   backup:
-    enabled: false
+    enabled: true
     image: percona/percona-backup-mongodb:2.0.4
     serviceAccountName: percona-server-mongodb-operator
-#    annotations:
-#      iam.amazonaws.com/role: role-arn
-#    resources:
-#      limits:
-#        cpu: "300m"
-#        memory: "0.5G"
-#      requests:
-#        cpu: "300m"
-#        memory: "0.5G"
-#    storages:
-#      s3-us-west:
-#        type: s3
-#        s3:
-#          bucket: S3-BACKUP-BUCKET-NAME-HERE
-#          credentialsSecret: my-cluster-name-backup-s3
-#          region: us-west-2
-#          prefix: ""
-#          uploadPartSize: 10485760
-#          maxUploadParts: 10000
-#          storageClass: STANDARD
-#          insecureSkipTLSVerify: false
-#      minio:
-#        type: s3
-#        s3:
-#          bucket: MINIO-BACKUP-BUCKET-NAME-HERE
-#          region: us-east-1
-#          credentialsSecret: my-cluster-name-backup-minio
-#          endpointUrl: http://minio.psmdb.svc.cluster.local:9000/minio/
-#          insecureSkipTLSVerify: false
-#          prefix: ""
-#      azure-blob:
-#        type: azure
-#        azure:
-#          container: CONTAINER-NAME
-#          prefix: PREFIX-NAME
-#          credentialsSecret: SECRET-NAME
+    annotations:
+      iam.amazonaws.com/role: role-arn
+    resources:
+      limits:
+        cpu: "300m"
+        memory: "0.5G"
+      requests:
+        cpu: "300m"
+        memory: "0.5G"
+    storages:
+      s3-tid:
+        type: s3
+        s3:
+          bucket: accel-webapp-dev-elog-backup
+          credentialsSecret: s3-backup-secret
+          region: us-west-1
+          prefix: ""
+          uploadPartSize: 10485760
+          maxUploadParts: 10000
+          storageClass: STANDARD
+          endpointUrl: https://s3dfrgw.slac.stanford.edu
     pitr:
       enabled: false
 #      oplogSpanMin: 10
       compressionType: gzip
       compressionLevel: 6
-#    tasks:
-#      - name: daily-s3-us-west
-#        enabled: true
-#        schedule: "0 0 * * *"
-#        keep: 3
-#        storageName: s3-us-west
-#        compressionType: gzip
-#        compressionLevel: 6
+    tasks:
+      - name: daily-s3-tid
+        enabled: true
+        schedule: "0 0 * * *"
+        keep: 3
+        storageName: s3-us-west
+        compressionType: gzip
+        compressionLevel: 6
 #      - name: weekly-s3-us-west
 #        enabled: false
 #        schedule: "0 0 * * 0"
