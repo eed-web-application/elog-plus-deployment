@@ -7,6 +7,7 @@ resources:
 - env-config-map.yaml
 - docker-config-secrets.yaml
 - s3-secret.yaml
+- s3-backup-secret.yaml
 - ingress.yaml
 - ingress-app-token.yaml
 - mongodb-cr.yaml

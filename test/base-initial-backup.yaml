@@ -1,0 +1,10 @@
+apiVersion: psmdb.percona.com/v1
+kind: PerconaServerMongoDBBackup
+metadata:
+  finalizers:
+  - delete-backup
+  name: base-initial-backup
+spec:
+  clusterName: elog-plus-cluster
+  storageName: s3-tid
+  type: logical
