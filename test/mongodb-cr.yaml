@@ -8,7 +8,7 @@ spec:
   crVersion: 1.14.0
   image: percona/percona-server-mongodb:6.0.4-3
   imagePullPolicy: Always
-  allowUnsafeConfigurations: true
+  allowUnsafeConfigurations: false
   updateStrategy: SmartUpdate
   upgradeOptions:
     versionServiceEndpoint: https://check.percona.com
@@ -146,8 +146,6 @@ spec:
     enabled: true
     image: percona/percona-backup-mongodb:2.0.4
     serviceAccountName: percona-server-mongodb-operator
-    # annotations:
-    #   iam.amazonaws.com/role: role-arn
     resources:
       limits:
         cpu: "300m"
@@ -177,7 +175,7 @@ spec:
         enabled: true
         schedule: "0 0 * * *"
         keep: 3
-        storageName: s3-us-west
+        storageName: s3-tid
         compressionType: gzip
         compressionLevel: 6
 #      - name: weekly-s3-us-west
