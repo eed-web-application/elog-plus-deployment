@@ -65,8 +65,8 @@ spec:
       exposeType: ClusterIP
     resources:
       limits:
-        cpu: "300m"
-        memory: "0.5G"
+        cpu: "2"
+        memory: "2G"
       requests:
         cpu: "300m"
         memory: "0.5G"
