@@ -20,7 +20,7 @@ spec:
     encryptionKey: elog-plus-cluster-encryption-key
 #    vault: my-cluster-name-vault
   pmm:
-    enabled: true
+    enabled: false
     image: percona/pmm-client:2.39.0
     serverHost: monitoring-service
 #    mongodParams: --environment=ENVIRONMENT
