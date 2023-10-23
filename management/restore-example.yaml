@@ -1,0 +1,7 @@
+apiVersion: psmdb.percona.com/v1
+kind: PerconaServerMongoDBRestore
+metadata:
+  name: example-restore
+spec:
+  clusterName: elog-plus-cluster
+  backupName: cron-elog-plus-cluste-20231023000000-rkb2x
