@@ -166,14 +166,14 @@ spec:
           storageClass: STANDARD
           endpointUrl: https://s3dfrgw.slac.stanford.edu
     pitr:
-      enabled: false
-#      oplogSpanMin: 10
+      enabled: true
+      oplogSpanMin: 20
       compressionType: gzip
       compressionLevel: 6
     tasks:
       - name: daily-s3-tid
         enabled: true
-        schedule: "0 */2 * * *"
+        schedule: "0 */3 * * *"
         keep: 3
         storageName: s3-tid
         compressionType: gzip
