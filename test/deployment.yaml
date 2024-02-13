@@ -20,7 +20,7 @@ spec:
       containers:
       - name: elog-plus-backend
         imagePullPolicy: Always
-        image: ghcr.io/eed-web-application/elog-plus:sha-bd0b30b
+        image: ghcr.io/eed-web-application/elog-plus:sha-fbc931b
         env:
         - name: ELOG_PLUS_MINIO_URL
           valueFrom:
