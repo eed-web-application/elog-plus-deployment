@@ -10,6 +10,7 @@ resources:
 - s3-backup-secret.yaml
 - ingress.yaml
 - ingress-app-token.yaml
+- ingress-public-doc.yaml
 - mongodb-cr.yaml
 - mongodb-rbac.yaml
 - mongodb-operator.yaml
