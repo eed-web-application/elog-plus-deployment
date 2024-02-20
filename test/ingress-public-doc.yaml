@@ -3,13 +3,13 @@ kind: Ingress
 metadata:
   name: elog-plus-backend-public-doc-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /api-docs/$2
+    nginx.ingress.kubernetes.io/rewrite-target: /api-docs
 spec:
   rules:
   - host: "accel-webapp-dev.slac.stanford.edu"
     http:
       paths:
-      - path: /api-doc/elog/(.*)
+      - path: /api-doc/elog
         pathType: Prefix
         backend:
           service:
