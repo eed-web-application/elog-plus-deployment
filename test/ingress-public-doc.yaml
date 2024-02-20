@@ -9,7 +9,7 @@ spec:
   - host: "accel-webapp-dev.slac.stanford.edu"
     http:
       paths:
-      - path: /api-doc/elog(/|$)(.*)
+      - path: /api-doc/elog/(.*)
         pathType: Prefix
         backend:
           service:
