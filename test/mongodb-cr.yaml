@@ -148,8 +148,8 @@ spec:
     serviceAccountName: percona-server-mongodb-operator
     resources:
       limits:
-        cpu: "300m"
-        memory: "0.5G"
+        cpu: "1000m"
+        memory: "1.5G"
       requests:
         cpu: "300m"
         memory: "0.5G"

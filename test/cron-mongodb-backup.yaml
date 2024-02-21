@@ -1,0 +1,46 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: mongo-backup-volume
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Gi
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: mongodb-backup
+spec:
+  schedule: "*/10 * * * *" # This runs every 10 minutes
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: mongodb-backup
+            image: percona/percona-server-mongodb:6.0.12-9
+            command: ["/bin/sh", "-c"]
+            args:
+            - |
+              export BACKUP_DIR="/backup"
+              mongodump --uri $ELOG_PLUS_MONGODB_URI --db elogs --out=$BACKUP_DIR/$(date +%Y-%m-%d_%H%M%S)
+              # Keeping the last 3 backups and deleting the rest
+              cd $BACKUP_DIR
+              ls -1tr | head -n -3 | xargs -d '\n' rm -rf --
+              ls -1tr 
+            envFrom:
+              - secretRef:
+                  name: mongodb-secret
+            volumeMounts:
+            - mountPath: "/backup"
+              name: mongo-backup-volume
+          restartPolicy: OnFailure
+          volumes:
+          - name: mongo-backup-volume
+            persistentVolumeClaim:
+              claimName: mongo-backup-volume
