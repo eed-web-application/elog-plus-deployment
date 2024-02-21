@@ -14,7 +14,7 @@ kind: CronJob
 metadata:
   name: mongodb-backup
 spec:
-  schedule: "*/10 * * * *" # This runs every 10 minutes
+  schedule: "0 * * * *" # This runs every 10 minutes
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 3
   jobTemplate:
