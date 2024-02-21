@@ -28,7 +28,7 @@ spec:
             args:
             - |
               export BACKUP_DIR="/backup"
-              mongodump --uri $ELOG_PLUS_MONGODB_URI --db elogs --out=$BACKUP_DIR/$(date +%Y-%m-%d_%H%M%S)
+              mongodump --uri $ELOG_PLUS_MONGODB_URI --db elogs  --gzip --out=$BACKUP_DIR/$(date +%Y-%m-%d_%H%M%S)
               # Keeping the last 3 backups and deleting the rest
               cd $BACKUP_DIR
               ls -1tr | head -n -3 | xargs -d '\n' rm -rf --
