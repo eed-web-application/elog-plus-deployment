@@ -173,7 +173,7 @@ spec:
     tasks:
       - name: daily-s3-tid
         enabled: true
-        schedule: "0 */12 * * *"
+        schedule: "0 * * * *"
         keep: 3
         storageName: s3-tid
         compressionType: gzip
