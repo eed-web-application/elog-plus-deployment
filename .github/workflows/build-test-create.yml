@@ -22,11 +22,13 @@ jobs:
         - uses: actions/setup-java@v3
           with:
             distribution: temurin
-            java-version: 19
+            java-version: 21
         - name: Build project
-          uses: gradle/gradle-build-action@v2.4.2
+          uses: gradle/gradle-build-action@v2
           env:
             CI: true
+            GH_USERNAME: ${{ secrets.GH_PACKAGE_USERNAME }}
+            GH_TOKEN: ${{ secrets.GH_PACKAGE_TOKEN }}
           with:
             arguments: assemble
         - name: Check for docker-compose.yml file
@@ -96,27 +98,37 @@ jobs:
             # generate Docker tags based on the following events/attributes
             tags: |
               type=sha
+              latest
             labels: |
-              maintainer=bisegni@slac.stanford.edu
+              maintainer=bisegni@slac.stanford.edu        
         - name: Build and push Docker image
-          uses: docker/build-push-action@v4
+          uses: docker/build-push-action@v5
           id: build_and_push
           with:
             context: .
             file: ./Dockerfile
-            platforms: |
-              linux/amd64
-              linux/arm64/v8
-            provenance: false
             push: true
+            provenance: false
             tags: ${{ steps.meta.outputs.tags }}
             labels: ${{ steps.meta.outputs.labels }}
+            build-args: |
+              GH_USERNAME=${{ secrets.GH_PACKAGE_USERNAME }}
+              GH_TOKEN=${{ secrets.GH_PACKAGE_TOKEN }}
+            platforms: linux/amd64,linux/arm64
     deploy:
         name: Start Deployment
         runs-on: ubuntu-latest
         needs: build-docker-images
         steps:
           - run: |
-                gh workflow --repo eed-web-application/elog-plus-deployment run Deployment -f deployment_image="${{needs.build-docker-images.outputs.IMAGE_TO_DEPLOY}} "
+                for tag in $(echo "${{ needs.build-docker-images.outputs.IMAGE_TO_DEPLOY }}" | sed "s/,/ /g")
+                do
+                  if [[ $tag =~ sha- ]]; then
+                    IMAGE_SHA_TAG=$tag
+                    break
+                  fi
+                done
+                echo "Use image $IMAGE_SHA_TAG for deployment"
+                gh workflow --repo eed-web-application/elog-plus-deployment run Deployment -f deployment_image="$IMAGE_SHA_TAG"
             env:
                 GITHUB_TOKEN: ${{ secrets.TRIGGER_WORKFLOW_SECRET }}
