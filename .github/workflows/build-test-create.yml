@@ -127,7 +127,7 @@ jobs:
             id: githubAppAuth
             with:
               app-id: ${{ secrets.APP_ID }}
-              app-private-key: ${{ secrets.APP_PRIVATE_KEY }}
+              private-key: ${{ secrets.APP_PRIVATE_KEY }}
               repositories: "elog-plus-deployment"
           - run: |
                 for tag in $(echo "${{ needs.build-docker-images.outputs.IMAGE_TO_DEPLOY }}" | sed "s/,/ /g")
