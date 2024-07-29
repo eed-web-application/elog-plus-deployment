@@ -123,12 +123,12 @@ jobs:
         runs-on: ubuntu-latest
         needs: build-docker-images
         steps:
-          - uses: Nastaliss/get-github-app-pat@v1
+          - uses: actions/create-github-app-token@v1
             id: githubAppAuth
             with:
               app-id: ${{ secrets.APP_ID }}
-              app-installation-id: ${{ secrets.APP_INSTALLATION_ID }}
               app-private-key: ${{ secrets.APP_PRIVATE_KEY }}
+              repositories: "elog-plus-deployment"
           - run: |
                 for tag in $(echo "${{ needs.build-docker-images.outputs.IMAGE_TO_DEPLOY }}" | sed "s/,/ /g")
                 do
@@ -140,4 +140,4 @@ jobs:
                 echo "Use image $IMAGE_SHA_TAG for deployment"
                 gh workflow --repo eed-web-application/elog-plus-deployment run Deployment -f deployment_image="$IMAGE_SHA_TAG"
             env:
-                GITHUB_TOKEN: ${{ steps.githubAppAuth.outputs.access-token }}
+                GITHUB_TOKEN: ${{ steps.githubAppAuth.outputs.token }}
