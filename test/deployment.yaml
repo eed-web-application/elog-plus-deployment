@@ -54,8 +54,8 @@ spec:
             memory: "256Mi"
             cpu: "500m"
           limits:
-            memory: 2Gi
-            cpu: 1000m
+            memory: 4Gi
+            cpu: 2000m
         ports:
         - containerPort: 8080
         livenessProbe:
