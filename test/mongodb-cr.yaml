@@ -166,7 +166,7 @@ spec:
           storageClass: STANDARD
           endpointUrl: https://s3dfrgw.slac.stanford.edu
     pitr:
-      enabled: true
+      enabled: false
       oplogSpanMin: 20
       compressionType: gzip
       compressionLevel: 6
