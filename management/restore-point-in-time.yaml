@@ -5,4 +5,4 @@ metadata:
   namespace: elog-plus
 spec:
   clusterName: elog-plus-cluster
-  backupName: base-after-import
+  backupName: cron-elog-plus-cluste-20240910190000-zfpzt

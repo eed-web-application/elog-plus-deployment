@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: elog-plus-backend
 spec:
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app: elog-plus-backend
