@@ -2,9 +2,7 @@ apiVersion: psmdb.percona.com/v1
 kind: PerconaServerMongoDBRestore
 metadata:
   name: restore1
+  namespace: elog-plus
 spec:
   clusterName: elog-plus-cluster
-  backupName: restore-pit-example
-  pitr:
-    type: date|latest
-    date: YYYY-MM-DD HH:MM:SS
+  backupName: base-after-import
