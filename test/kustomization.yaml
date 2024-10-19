@@ -2,8 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-- role.yaml
-- rolebinding.yaml
+- hazelcast-rbac.yaml
 - deployment.yaml
 - service.yaml
 - env-config-map.yaml
