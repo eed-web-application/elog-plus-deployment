@@ -7,6 +7,6 @@ roleRef:
   kind: ClusterRole
   name: hazelcast-cluster-role
 subjects:
-- kind: ServiceAccount
-  name: default
-  namespace: elog-plus
+  - kind: ServiceAccount
+    name: default
+    namespace: default
