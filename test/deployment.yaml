@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: elog-plus-backend
 spec:
-  replicas: 2
+  replicas: 
   selector:
     matchLabels:
       app: elog-plus-backend
@@ -20,7 +20,7 @@ spec:
       containers:
       - name: elog-plus-backend
         imagePullPolicy: Always
-        image: ghcr.io/eed-web-application/elog-plus:sha-38b06e3
+        image: ghcr.io/eed-web-application/elog-plus:sha-97ea71a
         env:
         - name: ELOG_PLUS_MINIO_URL
           valueFrom:
@@ -70,5 +70,13 @@ spec:
             port: 8080
           initialDelaySeconds: 30
           periodSeconds: 10
+        volumeMounts:
+          - name: hazelcast-config-volume
+            mountPath: /opt/hazelcast/config/hazelcast.yaml  # Mounting config as a file
+            subPath: hazelcast.yaml
       imagePullSecrets:
       - name: github-secret
+      volumes:
+        - name: hazelcast-config-volume
+          configMap:
+            name: hazelcast-config

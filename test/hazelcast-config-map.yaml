@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hazelcast-config
+data:
+  hazelcast.yaml: |
+    hazelcast:
+      cluster-name: elog-cache-cluster
+      instance-name: elog-cache-instance
+      metrics:
+        enabled: true
+      jet:
+        enabled: false
+        resource-upload-enabled: false
+      cache:
+        default:
+          statistics-enabled: true
+          management-enabled: true
+          read-through: true
+          write-through: true
+          eviction:
+            size: 1000
+            max-size-policy: ENTRY_COUNT
+            eviction-policy: LFU
+      network:
+        join:
+          multicast:
+            enabled: false
+          kubernetes:
+            enabled: true
+            namespace: elog-plus
+            service-name: elog-plus-backend-service

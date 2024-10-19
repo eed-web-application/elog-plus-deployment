@@ -6,6 +6,7 @@ resources:
 - deployment.yaml
 - service.yaml
 - env-config-map.yaml
+- hazelcast-config-map.yaml
 - docker-config-secrets.yaml
 - s3-secret.yaml
 - s3-backup-secret.yaml
