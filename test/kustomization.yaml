@@ -3,7 +3,7 @@ kind: Kustomization
 
 resources:
 - role.yaml
-- rolebindind.yaml
+- rolebinding.yaml
 - deployment.yaml
 - service.yaml
 - env-config-map.yaml
