@@ -58,6 +58,7 @@ spec:
             cpu: 2000m
         ports:
         - containerPort: 8080
+        - containerPort: 5701
         livenessProbe:
           httpGet:
             path: /actuator/health/liveness

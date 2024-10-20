@@ -22,3 +22,10 @@ data:
             size: 1000
             max-size-policy: ENTRY_COUNT
             eviction-policy: LFU
+      network:
+        join:
+          kubernetes:
+            enabled: true
+            namespace: elog-plus
+            service-name: elog-plus-backend-service
+            resolve-not-ready-addresses: true
