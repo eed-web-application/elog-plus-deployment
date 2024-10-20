@@ -18,7 +18,7 @@ data:
   ELOG_PLUS_LDAP_USER: cn=adeedweb,ou=Service-Accounts,ou=SCS,dc=win,dc=slac,dc=stanford,dc=edu
   ELOG_PLUS_ROOT_USERS: bisegni@slac.stanford.edu,mgibbs@slac.stanford.edu,boogie@slac.stanford.edu,service@internal.cwm.slac.app$,tiffany@slac.stanford.edu
   ELOG_PLUS_OIDC_CONFIGURATION_ENDPOINT: https://dex.slac.stanford.edu/.well-known/openid-configuration
-  ELOG_PLUS_HAZELCAST_CONFIG_PATH: /opt/hazelcast/config/hazelcast.yaml
+  ELOG_PLUS_HAZELCAST_CONFIG_PATH: file:/opt/hazelcast/config/hazelcast.yaml
   SPRING_PROFILES_ACTIVE: kafka-auth,manage-root-user,init-logbook
   ELOG_PLUS_IPP_URI_PREFIX: ipps://accel-webapp-dev.slac.stanford.edu/api/elog-apptoken
   #root authenticaiton token
