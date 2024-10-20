@@ -25,8 +25,8 @@ data:
       network:
         join:
           multicast:
-            enabled: false
-          kubernetes:
             enabled: true
+          kubernetes:
+            enabled: false
             namespace: elog-plus
             service-name: elog-plus-backend-service
