@@ -24,6 +24,8 @@ data:
             eviction-policy: LFU
       network:
         join:
+          multicast:
+            enabled: false
           kubernetes:
             enabled: true
             namespace: elog-plus
