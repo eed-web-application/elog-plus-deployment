@@ -2,11 +2,12 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-- hazelcast-rbac.yaml
 - deployment.yaml
 - app-service.yaml
 - env-config-map.yaml
 - hazelcast-config-map.yaml
+- hazelcast-rbac.yaml
+- hazelcast-service.yaml
 - docker-config-secrets.yaml
 - s3-secret.yaml
 - s3-backup-secret.yaml
