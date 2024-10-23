@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
 - hazelcast-rbac.yaml
 - deployment.yaml
-- service.yaml
+- app-service.yaml
 - env-config-map.yaml
 - hazelcast-config-map.yaml
 - docker-config-secrets.yaml

@@ -27,5 +27,4 @@ data:
           kubernetes:
             enabled: true
             namespace: elog-plus
-            service-name: elog-plus-backend-service
-            resolve-not-ready-addresses: true
+            service-name: hazelcast-service
